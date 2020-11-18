@@ -1,0 +1,93 @@
+一、程序设计：
+    1、全局常量、结构定义
+         //二叉树结点二叉树结构体
+         typedef struct node{
+            char data;
+            struct node *left_child;
+            struct node *right_child;
+         }node;
+
+         //队列结点结构体
+         typedef struct queueNode{
+            node *data;
+            struct queueNode *next;
+         }queueNode,*queueptr;
+
+         //队列结构体
+         typedef struct{
+            queueptr front;
+            queueptr rear;
+         }queue;
+
+    2、模块划分
+    3、函数功能声明
+         1) tree.cpp
+  /*
+     建立队列，并将根节点入队列。
+     进入循环
+         出一个队列中的元素，并将其输出，然后将该元素的左孩子，右孩子先后入队列
+         若队列为空，退出循环
+  */
+  void levelorder(node *ptr);
+
+  /*根结点不为空时，递归调用本函数后序遍历左子树，
+     继续调用本函数后序遍历右子树，然后输出根结点值。
+  */
+  void postorder(node *ptr);
+
+  /*
+     返回找到结点的指针(node *),没有则返回空(NULL)
+     若根结点为空则返回空。
+     根结点不为空时判断根结点是否为待找结点，
+         是则返回，否则继续调用本函数查找左子树；
+     若返回值不为空则返回该返回值，否则继续调用本函数查找右子树，并将返回值返回。
+  */
+  node *search(node *ptr,char c);
+
+  /*
+     返回找到结点的指针(node *),没有则返回空(NULL)
+     若根结点为空则返回空。
+     根结点不为空时判断根结点是否为待找结点，.
+         是则返回，否则继续调用本函数查找左子树；
+     若返回值不为空则返回该返回值，否则继续调用本函数查找右子树，并将返回值返回。
+  */
+  void path(node *root);
+
+         2) queue.cpp
+  /*
+     初始化队列
+  */
+  void initqueue(queue &s);
+
+  /*
+     将元素压入队列
+  */
+  void enqueue(queue &s,node *ptr);
+
+  /*
+     出队列
+  */
+  node *dequeue(queue &s);
+
+  void delqueue(queue& s);
+
+         3) create.cpp
+  /*
+     输入：数的前序序列数组pre[]，数的中序序列数组in[]
+     返回：树的根节点的指针(node *)
+     动态申请根节点空间，赋根植，若前序数组中只有一个值，该树只有根节点，
+     将根结点的左右孩子均赋为空，返回根节点。在中序序列里找到根节点并记录其位置，
+     就可以得到左子树的结点数和右子树的结点数，然后将数组划分为左子树和右子树部分。
+     如果左子树为空，则根节点左孩子赋为空，否则继续调用本函数，
+     根据左子树的结点数对数组界限进行修改，将返回值赋即左子树的根结点指针赋给根结点的左孩子，并且赋根结点的值给左孩子的父母指针。右边类似。
+  */
+  node* create(char pre[ ], char in[ ]);
+
+         4) main.cpp
+  /*
+     将树的前序序列和中序序列读入并存入字符数组中，
+     依次调用creat(创建树函数)，postorder(后序遍历树函数)，
+     levelorder(层次遍历树函数)，search(查找节点函数)，
+     path(输出从根到结点的路径函数)，完成该程序。
+  */
+  int main(void);
