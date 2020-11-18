@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "../sources/all.h"
 #include "math.h"
-
+int sum;
 int main(void) {
     int n;
     fclose(fopen("./output", "w"));
