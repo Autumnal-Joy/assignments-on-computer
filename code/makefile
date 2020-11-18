@@ -1,4 +1,4 @@
-NAME = assignment1
+NAME = T22
 
 none:
 	g++ -o $(NAME) $(wildcard *.cpp)
