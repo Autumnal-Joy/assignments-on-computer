@@ -6,9 +6,17 @@ typedef struct {
     int** matrix;
 } Graph;
 
-Graph* getGraph(int vertex);
+typedef struct {
+    int rows;
+    int** array;
+} Triples;
+
+Graph* newGraph(int vertex);
+Graph* copyGraph(Graph* graph);
 void delGraph(Graph* graph);
 Graph* fillGraph(Graph* graph, int directed);
 void printGraph(Graph* graph);
+Triples* toTriple(Graph* graph, int vertex);
+void delTriples(Triples* triples);
 
 #endif  // GRAPH_H

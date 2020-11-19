@@ -10,7 +10,7 @@ int main(int argc, char const* argv[]) {
     puts("number of vertex:");
     fscanf(fp, "%d%*c", &vertex);
 
-    Graph* graph = fillGraph(getGraph(vertex), 0);
+    Graph* graph = fillGraph(newGraph(vertex), 0);
     Graph* pGraph = prim(graph);
     Graph* kGraph = kruskal(graph);
 

@@ -3,7 +3,7 @@
 Graph* prim(Graph* graph) {
     int vertex = graph->vertex;
     int** matrix = graph->matrix;
-    Graph* p = getGraph(vertex);
+    Graph* p = newGraph(vertex);
     int flag[vertex] = {1};
     for (int i = 1; i < vertex; i++) {
         int minWeight[vertex] = {0};

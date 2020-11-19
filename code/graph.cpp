@@ -6,9 +6,14 @@ typedef struct {
     int** matrix;
 } Graph;
 
+typedef struct {
+    int rows;
+    int** array;
+} Triples;
+
 extern FILE* fp;
 
-Graph* getGraph(int vertex) {
+Graph* newGraph(int vertex) {
     Graph* g = (Graph*)malloc(sizeof(Graph));
     g->vertex = vertex;
     g->matrix = (int**)malloc(sizeof(int*) * vertex);
@@ -63,4 +68,48 @@ void printGraph(Graph* graph) {
         }
     }
     printf("]\n");
+}
+
+Graph* copyGraph(Graph* graph) {
+    Graph* p = newGraph(graph->vertex);
+    for (int i = 0; i < graph->vertex; i++) {
+        for (int j = 0; j < graph->vertex; j++) {
+            p->matrix[i][j] = graph->matrix[i][j];
+        }
+    }
+    return p;
+}
+
+Triples* toTriple(Graph* graph, int vertex) {
+    int cnt = 0;
+    for (int i = 0; i < graph->vertex; i++) {
+        for (int j = i + 1; j < graph->vertex; j++) {
+            if (graph->matrix[i][j]) {
+                cnt++;
+            }
+        }
+    }
+    Triples* t = (Triples*)malloc(sizeof(Triples));
+    t->rows = cnt;
+    t->array = (int**)malloc(sizeof(int*) * cnt);
+    int index = 0;
+    for (int i = 0; i < graph->vertex; i++) {
+        for (int j = i + 1; j < graph->vertex; j++) {
+            if (graph->matrix[i][j]) {
+                t->array[index] = (int*)malloc(sizeof(int) * 3);
+                t->array[index][0] = i;
+                t->array[index][1] = j;
+                t->array[index++][2] = graph->matrix[i][j];
+            }
+        }
+    }
+    return t;
+}
+
+void delTriples(Triples* triples) {
+    for (int i = 0; i < triples->rows; i++) {
+        free(triples->array[i]);
+    }
+    free(triples->array);
+    free(triples);
 }
