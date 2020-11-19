@@ -1,9 +1,5 @@
 #include "graph.h"
 
-static int cmp(const void* a, const void* b) {
-    return ((int*)a)[2] - ((int*)b)[2];
-}
-
 static void sort(int** a, int length) {
     for (int i = 0; i < length; i++) {
         for (int j = i + 1; j < length; j++)

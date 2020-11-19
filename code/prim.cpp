@@ -19,7 +19,7 @@ Graph* prim(Graph* graph) {
                 }
                 // 找到集合内的点
                 if (!minWeight[j] ||
-                    matrix[j][k] && matrix[j][k] < minWeight[j]) {
+                    (matrix[j][k] && matrix[j][k] < minWeight[j])) {
                     // 找到更短边
                     minWeight[j] = matrix[j][k];
                     adjacency[j] = k;
@@ -28,7 +28,7 @@ Graph* prim(Graph* graph) {
         }
         int loc = 0, min = 0;
         for (int j = 0; j < vertex; j++) {
-            if (!min || minWeight[j] && minWeight[j] < min) {
+            if (!min || (minWeight[j] && minWeight[j] < min)) {
                 min = minWeight[j];
                 loc = j;
             }
