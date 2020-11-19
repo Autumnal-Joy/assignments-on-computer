@@ -4,5 +4,6 @@
 #include "graph.h"
 Graph* prim(Graph* graph);
 Graph* kruskal(Graph* graph);
+Graph* delEdge(Graph* graph);
 
 #endif  // MINTREE_H
