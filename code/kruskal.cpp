@@ -1,17 +1,16 @@
-#include <stdlib.h>
 #include "graph.h"
 
 static int cmp(const void* a, const void* b) {
     return ((int*)a)[2] - ((int*)b)[2];
 }
 
-void sort(int** a, int length) {
+static void sort(int** a, int length) {
     for (int i = 0; i < length; i++) {
         for (int j = i + 1; j < length; j++)
-            if (a[i][2] < a[j][2]) {
-                int t = a[i][2];
-                a[i][2] = a[j][2];
-                a[j][2] = t;
+            if (a[i][2] > a[j][2]) {
+                int* t = a[i];
+                a[i] = a[j];
+                a[j] = t;
             }
     }
 }
@@ -33,7 +32,6 @@ Graph* kruskal(Graph* graph) {
     int vertex = graph->vertex;
     Graph* k = newGraph(vertex);
     Triples* t = toTriple(graph, vertex);
-    // qsort(t->array, t->rows, sizeof(t->array[0]), cmp);
     sort(t->array, t->rows);
     // 排序后的三元组t->array
     for (int i = 0, cnt = 1; cnt < vertex; i++) {

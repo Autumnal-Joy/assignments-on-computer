@@ -15,15 +15,14 @@ int main(int argc, char const* argv[]) {
     Graph* kGraph = kruskal(graph);
     Graph* dGraph = delEdge(graph);
 
-    putchar('\n');
+    printf("Graph:\n");
     printGraph(graph);
-    putchar('\n');
+    printf("Prim:\n");
     printGraph(pGraph);
-    putchar('\n');
+    printf("kruskal:\n");
     printGraph(kGraph);
-    putchar('\n');
+    printf("delRdge:\n");
     printGraph(dGraph);
-    putchar('\n');
 
     delGraph(graph);
     delGraph(pGraph);

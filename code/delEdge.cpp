@@ -1,8 +1,14 @@
-#include <stdlib.h>
 #include "graph.h"
 
-static int cmp(const void* a, const void* b) {
-    return ((int*)b)[2] - ((int*)a)[2];
+static void sort(int** a, int length) {
+    for (int i = 0; i < length; i++) {
+        for (int j = i + 1; j < length; j++)
+            if (a[i][2] > a[j][2]) {
+                int* t = a[i];
+                a[i] = a[j];
+                a[j] = t;
+            }
+    }
 }
 int dfs(Graph* d, int start, int* visited) {
     visited[start] = 1;
@@ -25,7 +31,7 @@ Graph* delEdge(Graph* graph) {
     Graph* d = copyGraph(graph);
     Triples* t = toTriple(d, d->vertex);
     // 降序排序三元组t->array
-    qsort(t->array, t->rows, sizeof(t->array[0]), cmp);
+    sort(t->array, t->rows);
     for (int i = 0; i < t->rows; i++) {
         // 删除array[i]在矩阵中的对应元素
         d->matrix[t->array[i][0]][t->array[i][1]] =
