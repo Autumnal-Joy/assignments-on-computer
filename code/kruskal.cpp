@@ -27,7 +27,7 @@ int hasCircle(Graph* graph, int from, int start, int target) {
 Graph* kruskal(Graph* graph) {
     int vertex = graph->vertex;
     Graph* k = newGraph(vertex);
-    Triples* t = toTriple(graph, vertex);
+    Triples* t = toTriple(graph);
     sort(t->array, t->rows);
     // 排序后的三元组t->array
     for (int i = 0, cnt = 1; cnt < vertex; i++) {
@@ -38,5 +38,6 @@ Graph* kruskal(Graph* graph) {
             cnt++;
         }
     }
+    delTriples(t);
     return k;
 }

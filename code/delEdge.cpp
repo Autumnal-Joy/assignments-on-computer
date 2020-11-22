@@ -29,7 +29,7 @@ int connected(Graph* d) {
 
 Graph* delEdge(Graph* graph) {
     Graph* d = copyGraph(graph);
-    Triples* t = toTriple(d, d->vertex);
+    Triples* t = toTriple(d);
     // 降序排序三元组t->array
     sort(t->array, t->rows);
     for (int i = 0; i < t->rows; i++) {
@@ -43,5 +43,6 @@ Graph* delEdge(Graph* graph) {
             d->matrix[edge1][edge2] = d->matrix[edge2][edge1] = weight;
         }
     }
+    delTriples(t);
     return d;
 }

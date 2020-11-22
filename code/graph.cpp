@@ -80,7 +80,7 @@ Graph* copyGraph(Graph* graph) {
     return p;
 }
 
-Triples* toTriple(Graph* graph, int vertex) {
+Triples* toTriple(Graph* graph) {
     int cnt = 0;
     for (int i = 0; i < graph->vertex; i++) {
         for (int j = i + 1; j < graph->vertex; j++) {
