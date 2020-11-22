@@ -2,7 +2,6 @@
 #define GRAPH_H
 
 // 图的邻接矩阵表示法
-
 typedef struct {
     int vertex;
     int** matrix;
