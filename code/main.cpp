@@ -11,12 +11,14 @@ int main(int argc, char const* argv[]) {
     fscanf(fp, "%d%*c", &vertex);
 
     Graph* graph = fillGraph(newGraph(vertex), 0);
+
     Graph* pGraph = prim(graph);
     Graph* kGraph = kruskal(graph);
     Graph* dGraph = delEdge(graph);
 
     printf("Graph:\n");
     printGraph(graph);
+
     printf("Prim:\n");
     printGraph(pGraph);
     printf("kruskal:\n");

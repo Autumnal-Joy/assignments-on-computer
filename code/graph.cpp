@@ -33,11 +33,15 @@ void delGraph(Graph* graph) {
 
 Graph* fillGraph(Graph* graph, int directed) {
     puts("relation of vertex(initial end weight)");
-    char str[10];
-    int n = 0, a, b, weight = 1;
-    do {
+    char str[100];
+    int n = 0, a, b, weight;
+    while(1) {
         fgets(str, 100, fp);
+        weight = 1;
         n = sscanf(str, "%d %d %d", &a, &b, &weight);
+        if (n < 2) {
+            break;
+        }
         if (a >= graph->vertex || b >= graph->vertex || a < 0 || b < 0) {
             puts("out of range");
         } else if (a == b) {
@@ -48,7 +52,7 @@ Graph* fillGraph(Graph* graph, int directed) {
             }
             graph->matrix[a][b] = weight;
         }
-    } while (n > 1);
+    }
     return graph;
 }
 

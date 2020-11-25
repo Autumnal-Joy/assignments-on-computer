@@ -16,7 +16,11 @@ typedef struct {
 // 传顶点个数, 返回邻接矩阵表示的无边图
 Graph* newGraph(int vertex);
 
-// 传邻接矩阵表示的图, 返回其复制
+/*
+    graph: 复制的对象
+    return: 复制的结果
+    功能: 将图复制, 返回复制后的图
+*/
 Graph* copyGraph(Graph* graph);
 
 // 删除邻接矩阵表示的图
