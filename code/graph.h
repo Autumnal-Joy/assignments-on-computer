@@ -23,19 +23,35 @@ Graph* newGraph(int vertex);
 */
 Graph* copyGraph(Graph* graph);
 
-// 删除邻接矩阵表示的图
+/*
+    graph: 删除的对象
+    功能: 删除图,释放内存
+*/
 void delGraph(Graph* graph);
 
-// 传邻接矩阵表示的无边图和是否有向, 返回邻接矩阵表示的有向/无向图
+/*
+    directed:1为有向图,0为无向图
+    graph:传入的图
+    功能:把关系与权值存入图
+*/
 Graph* fillGraph(Graph* graph, int directed);
 
-// 打印邻接矩阵
+/*
+    graph:传入的图
+    功能:打印邻接矩阵
+*/
 void printGraph(Graph* graph);
 
-// 传邻接矩阵表示的图, 返回三元组表示的图
+/*
+    graph:传入的图
+    功能:传邻接矩阵表示的图, 返回三元组表示的图
+*/
 Triples* toTriple(Graph* graph);
 
-// 删除三元组表示的图
+/*
+    triples:传入的图
+    功能删除三元组表示的图
+*/
 void delTriples(Triples* triples);
 
 #endif  // GRAPH_H
