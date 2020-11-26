@@ -20,17 +20,17 @@ int main(int argc, char const *argv[])
     printf("Graph:\n");
     printGraph(graph);
 
-    // printf("Prim:\n");
-    // printGraph(pGraph);
+    printf("Prim:\n");
+    printGraph(pGraph);
     printf("kruskal:\n");
     printGraph(kGraph);
-    // printf("delEdge:\n");
-    // printGraph(dGraph);
+    printf("delEdge:\n");
+    printGraph(dGraph);
 
-    // delGraph(graph);
-    // delGraph(pGraph);
-    // delGraph(kGraph);
-    // delGraph(dGraph);
+    delGraph(graph);
+    delGraph(pGraph);
+    delGraph(kGraph);
+    delGraph(dGraph);
 
     fclose(fp);
     return 0;
