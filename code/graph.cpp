@@ -35,7 +35,7 @@ Graph* fillGraph(Graph* graph, int directed) {
     puts("relation of vertex(initial end weight)");
     char str[100];
     int n = 0, a, b, weight;
-    while(1) {
+    while (1) {
         fgets(str, 100, fp);
         weight = 1;
         n = sscanf(str, "%d %d %d", &a, &b, &weight);
