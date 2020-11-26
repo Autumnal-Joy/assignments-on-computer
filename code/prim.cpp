@@ -16,7 +16,8 @@ Graph* prim(Graph* graph) {
             if (flag[i]) {
                 continue;
             }
-            if (minWeight[i] == 0 || matrix[last][i] < minWeight[i]) {
+            if (minWeight[i] == 0 ||
+                matrix[last][i] != 0 && matrix[last][i] < minWeight[i]) {
                 minWeight[i] = matrix[last][i];
                 adjacency[i] = last;
             }
