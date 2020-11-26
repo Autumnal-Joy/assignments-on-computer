@@ -1,12 +1,12 @@
 #include <stdio.h>
-#include "graph.h"
-#include "minTree.h"
+#include "../code/graph.h"
+#include "../code/minTree.h"
 
 FILE *fp = stdin;
 
 int main(int argc, char const *argv[])
 {
-    fp = fopen("code/input", "r");
+    fp = fopen("test/input", "r");
     int vertex;
     puts("number of vertex:");
     fscanf(fp, "%d%*c", &vertex);
@@ -20,17 +20,17 @@ int main(int argc, char const *argv[])
     printf("Graph:\n");
     printGraph(graph);
 
-    printf("Prim:\n");
-    printGraph(pGraph);
+    // printf("Prim:\n");
+    // printGraph(pGraph);
     printf("kruskal:\n");
     printGraph(kGraph);
-    printf("delEdge:\n");
-    printGraph(dGraph);
+    // printf("delEdge:\n");
+    // printGraph(dGraph);
 
-    delGraph(graph);
-    delGraph(pGraph);
-    delGraph(kGraph);
-    delGraph(dGraph);
+    // delGraph(graph);
+    // delGraph(pGraph);
+    // delGraph(kGraph);
+    // delGraph(dGraph);
 
     fclose(fp);
     return 0;
