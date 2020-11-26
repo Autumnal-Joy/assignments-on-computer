@@ -5,37 +5,40 @@ Graph* prim(Graph* graph) {
     int** matrix = graph->matrix;
     Graph* p = newGraph(vertex);
     int flag[vertex] = {1};
-    for (int i = 1; i < vertex; i++) {
-        int minWeight[vertex] = {0};
-        int adjacency[vertex] = {0};
-        for (int j = 0; j < vertex; j++) {
-            if (flag[j]) {
+    int last = 0;
+    int minWeight[vertex] = {0};
+    int adjacency[vertex] = {0};
+    for (int cnt = 1; cnt < vertex; cnt++) {
+        // 更新集合外的点i到集合内的最小距离minWeight[i],
+        // 和对应在集合内的邻接点adjacency[i]
+        for (int i = 0; i < vertex; i++) {
+            // 找到集合外的点
+            if (flag[i]) {
                 continue;
             }
-            // 找到没有包含在集合内的点
-            for (int k = 0; k < vertex; k++) {
-                if (!flag[k]) {
-                    continue;
-                }
-                // 找到集合内的点
-                if (!minWeight[j] ||
-                    (matrix[j][k] && matrix[j][k] < minWeight[j])) {
-                    // 找到更短边
-                    minWeight[j] = matrix[j][k];
-                    adjacency[j] = k;
-                }
+            if (minWeight[i] == 0 || matrix[last][i] < minWeight[i]) {
+                minWeight[i] = matrix[last][i];
+                adjacency[i] = last;
             }
         }
-        int loc = 0, min = 0;
-        for (int j = 0; j < vertex; j++) {
-            if (!min || (minWeight[j] && minWeight[j] < min)) {
-                min = minWeight[j];
-                loc = j;
+        // 找到minWeight的最小值minW和对应的点minI
+        int minI = 0;
+        int minW = 0;
+        for (int i = 0; i < vertex; i++) {
+            // 找到集合外的点
+            if (flag[i]) {
+                continue;
+            }
+            if (minW == 0 || minWeight[i] != 0 && minWeight[i] < minW) {
+                minW = minWeight[i];
+                minI = i;
             }
         }
-        // loc是与集合距离最近的点, adjacency[loc]是邻接点
-        p->matrix[adjacency[loc]][loc] = p->matrix[loc][adjacency[loc]] = min;
-        flag[loc] = 1;
+        last = minI;
+        // 将点minI加入集合, 将对应边加入图
+        flag[minI] = 1;
+        p->matrix[minI][adjacency[minI]] = p->matrix[adjacency[minI]][minI] =
+            minW;
     }
     return p;
 }
