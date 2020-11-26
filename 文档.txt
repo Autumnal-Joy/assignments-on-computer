@@ -1,11 +1,13 @@
 数据结构设计:
     // 图的邻接矩阵表示法
+    // vertax表示顶点个数
     typedef struct {
         int vertex;
         int** matrix;
     } Graph;
 
     // 图的三元组表示法
+    // rows表示行数
     typedef struct {
         int rows;
         int** array;
@@ -60,6 +62,9 @@
 
     /*
         graph:传入的图
+        输出邻接矩阵格式:第一行一行[[x x x x x x x],
+                        最后一行  [x x x x x x x]]
+                        中间的行  [x x x x x x x],
         功能:打印邻接矩阵
     */
     void printGraph(Graph* graph);
@@ -72,9 +77,20 @@
 
     /*
         triples:传入的图
-        功能删除三元组表示的图
+        功能:删除三元组表示的图
     */
     void delTriples(Triples* triples);
+
+输入:
+    顶点个数
+    顶点 顶点 权值
+    顶点 顶点 权值
+    顶点 顶点 权值
+    顶点 顶点 权值
+    ...
+    end
+
+
 
 
 模块划分:
