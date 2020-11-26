@@ -57,6 +57,14 @@
         directed:1为有向图,0为无向图
         graph:传入的图
         功能:把关系与权值存入图
+        输入:
+            顶点个数
+            顶点 顶点 权值
+            顶点 顶点 权值
+            顶点 顶点 权值
+            顶点 顶点 权值
+            ...
+            end
     */
     Graph* fillGraph(Graph* graph, int directed);
 
@@ -80,15 +88,6 @@
         功能:删除三元组表示的图
     */
     void delTriples(Triples* triples);
-
-输入:
-    顶点个数
-    顶点 顶点 权值
-    顶点 顶点 权值
-    顶点 顶点 权值
-    顶点 顶点 权值
-    ...
-    end
 
 
 
