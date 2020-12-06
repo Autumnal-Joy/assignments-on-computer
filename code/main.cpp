@@ -2,14 +2,12 @@
 #include "tree.h"
 
 int main(void) {
-    Tree* tree;
-    int val;
-    while (1) {
-        scanf("%d", &val);
-        // 输入负值终止程序
-        if (val < 0) {
-            break;
-        }
-        reverseOrder(insert(tree, val));
+    FILE* fp = fopen("./code/in", "r");
+    Tree* tree = NULL;
+    int key;
+    while (fscanf(fp, "%d", &key) != -1) {
+        tree = insert(tree, key);
+        reverseOrder(tree);
+        printf("\n");
     }
 }
