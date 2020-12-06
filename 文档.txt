@@ -10,13 +10,13 @@
         int leftChildHeight;
         // 右子树的高度
         int rightChildHeight;
-        // 节点保存的数据
+        // 关键字
         int key;
     } Tree;
 
 2. 函数接口定义
     tree.h模块
-        /* 以parent为父母节点, 以key为节点数据, 创建一个新的节点并返回该节点.
+        /* 以parent为父母节点, 以key为关键字, 创建一个新的节点并返回该节点.
         * (根节点的父母节点为NULL) */
         Tree* createTree(Tree* parent, int key);
 
@@ -29,8 +29,9 @@
         /* 从叶子节点开始向上计算平衡因子, 当出现不平衡状态时进行旋转 */
         void balanced(Tree* leaf);
 
-        /* 在平衡二叉树tree中插入一个数值为key的节点, 且插入节点后平衡新树,
-        * 返回平衡后的树的根节点. */
+        /* 若tree为空树NULL, 则创建关键字为key的节点并返回该节点.
+        * 否则在二叉树tree中插入一个关键字为key的节点, 且插入节点后平衡新树,
+        * 返回树的根节点. */
         Tree* insert(Tree* tree, int key);
 
         /* 逆中序遍历树tree, 以空格分隔关键字, 输出占一行. */
