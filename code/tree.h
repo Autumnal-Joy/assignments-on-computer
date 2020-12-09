@@ -21,18 +21,18 @@ typedef struct Tree {
 Tree* createTree(Tree* parent, int key);
 
 /* 左逆时针旋转, 更新双向指针的关系以及左右孩子高度 */
-void leftRotate(Tree* parent, Tree* rightChild);
+void leftRotate(Tree*& tree);
 
 /* 右顺时针旋转, 更新双向指针的关系以及左右孩子高度 */
-void rightRotate(Tree* parent, Tree* leftChild);
+void rightRotate(Tree*& tree);
 
 /* 从叶子节点开始向上计算平衡因子, 当出现不平衡状态时进行旋转 */
-void balanced(Tree* leaf);
+void balanced(Tree*& tree);
 
 /* 若tree为空树NULL, 则创建关键字为key的节点并返回该节点.
  * 否则在二叉树tree中插入一个关键字为key的节点, 且插入节点后平衡新树,
  * 返回树的根节点. */
-Tree* insert(Tree* tree, int key);
+void insert(Tree*& tree, int key);
 
 /* 逆中序遍历树tree, 以空格分隔关键字, 输出占一行. */
 void reverseOrder(Tree* tree);

@@ -6,7 +6,7 @@ int main(void) {
     Tree* tree = NULL;
     int key;
     while (fscanf(fp, "%d", &key) != -1) {
-        tree = insert(tree, key);
+        insert(tree, key);
         reverseOrder(tree);
         printf("\n");
     }

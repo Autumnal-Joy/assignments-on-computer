@@ -22,36 +22,52 @@ Tree* createTree(Tree* parent, int key) {
 }
 
 /* 左逆时针旋转, 更新双向指针的关系以及左右孩子高度 */
-void leftRotate(Tree* parent, Tree* rightChild) {}
+void leftRotate(Tree*& tree) {}
 
 /* 右顺时针旋转, 更新双向指针的关系以及左右孩子高度 */
-void rightRotate(Tree* parent, Tree* leftChild) {}
+void rightRotate(Tree*& tree) {}
 
-/* 从叶子节点开始向上计算平衡因子, 当出现不平衡状态时进行旋转 */
-void balanced(Tree* leaf) {}
-
-Tree* insert(Tree* tree, int key) {
-    if (!tree) {
-        return createTree(NULL, key);
+void balanced(Tree*& tree) {
+    int left = tree->leftChildHeight;
+    int right = tree->rightChildHeight;
+    if (left - right == 2) {
+        int left = tree->leftChild->leftChildHeight;
+        int right = tree->leftChild->rightChildHeight;
+        if (left - right == 1) {
+            // LL
+            rightRotate(tree);
+        } else {
+            // LR
+            leftRotate(tree->leftChild);
+            rightRotate(tree);
+        }
+    } else if (left - right == -2) {
+        int left = tree->rightChild->leftChildHeight;
+        int right = tree->rightChild->rightChildHeight;
+        if (left - right == -1) {
+            // RR
+            leftRotate(tree);
+        } else {
+            // RL
+            rightRotate(tree->rightChild);
+            leftRotate(tree);
+        }
     }
-    if (key < tree->key) {
-        tree->leftChildHeight++;
-        if (tree->leftChild) {
+}
+
+void insert(Tree*& tree, int key) {
+    if (!tree) {
+        tree = createTree(NULL, key);
+    } else {
+        if (key < tree->key) {
+            tree->leftChildHeight++;
             insert(tree->leftChild, key);
         } else {
-            tree->leftChild = createTree(tree, key);
-            balanced(tree->leftChild);
-        }
-    } else {
-        tree->rightChildHeight++;
-        if (tree->rightChild) {
+            tree->rightChildHeight++;
             insert(tree->rightChild, key);
-        } else {
-            tree->rightChild = createTree(tree, key);
-            balanced(tree->rightChild);
         }
+        balanced(tree);
     }
-    return tree;
 }
 
 void reverseOrder(Tree* tree) {
