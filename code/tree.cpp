@@ -36,7 +36,7 @@ void balanced(Tree*& tree) {
         if (left - right == 1) {
             // LL
             rightRotate(tree);
-        } else {
+        } else if (left - right == -1) {
             // LR
             leftRotate(tree->leftChild);
             rightRotate(tree);
@@ -47,7 +47,7 @@ void balanced(Tree*& tree) {
         if (left - right == -1) {
             // RR
             leftRotate(tree);
-        } else {
+        } else if (left - right == 1) {
             // RL
             rightRotate(tree->rightChild);
             leftRotate(tree);
