@@ -24,7 +24,7 @@ Tree* createTree(Tree* parent, int key) {
 /* 左逆时针旋转, 更新双向指针的关系以及左右孩子高度 */
 void leftRotate(Tree* parent, Tree* rightChild) {}
 
-/* 右顺时针旋转 */
+/* 右顺时针旋转, 更新双向指针的关系以及左右孩子高度 */
 void rightRotate(Tree* parent, Tree* leftChild) {}
 
 /* 从叶子节点开始向上计算平衡因子, 当出现不平衡状态时进行旋转 */
