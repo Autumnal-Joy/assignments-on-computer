@@ -1,3 +1,34 @@
+#include <stdio.h>
+
+/*
+该函数输入为整型数组，待排数组的起点a和终点b。
+然后进入循环，从待排数组的第二个元素开始扫描，若它大于或等于前一个元素，则继续扫描。
+否则在前边找到该元素的插入点，移动数组，进行插入。然后继续扫描。扫描到终点后，该数组的插入排序也就完成了。
+*/
+void insert(int data[], int a, int b) {
+    int i = 1;
+    int j, k, sum;
+    while (i <= b) {
+        if (data[i] >= data[i - 1]) {
+            i++;
+        } else {
+            for (j = 0; j < i; j++) {
+                if (data[i] < data[j]) {
+                    sum = data[i];
+                    for (k = i; k != j; k--) {
+                        data[k] = data[k - 1];
+                    }
+                    data[j] = sum;
+                }
+            }
+            i++;
+        }
+    }
+    for (i = 0; i <= b; i++) {
+        printf("%d ", data[i]);
+    }
+}
+
 /*
 该函数输入为整型数组，a, b分别为待排数组的起始点和终点。
 然后将data[a]作为枢轴元素。定义两个指针startptr和endptr，
@@ -32,7 +63,7 @@ void quick(int data[], int a, int b) {
     for (i = 0; i <= b; i++) {
         printf("%d ", data[i]);
     }
-};
+}
 
 /*
 该函数和快排函数基本一致，只对枢轴元素的选取作了调整。
@@ -72,35 +103,4 @@ void threequick(int data[], int a, int b) {
     for (i = 0; i <= b; i++) {
         printf("%d ", data[i]);
     }
-};
-
-/*
-该函数输入为整型数组，待排数组的起点a和终点b。
-然后进入循环，从待排数组的第二个元素开始扫描，若它大于或等于前一个元素，则继续扫描。
-否则在前边找到该元素的插入点，移动数组，进行插入。然后继续扫描。扫描到终点后，该数组的插入排序也就完成了。
-*/
-void insert(int data[], int a, int b) {
-    int i = 1;
-    int j, k, sum;
-    while (i <= b) {
-        if (data[i] >= data[i - 1]) {
-            i++;
-        } else {
-            for (j = 0; j < i; j++) {
-                if (data[i] < data[j]) {
-                    sum = data[i];
-                    for (k = i; k != j; k--) {
-                        data[k] = data[k - 1];
-                    }
-                    data[j] = sum;
-                }
-            }
-            i++;
-        }
-    }
-    for (i = 0; i <= b; i++) {
-        printf("%d ", data[i]);
-    }
 }
-
-int main() {}
