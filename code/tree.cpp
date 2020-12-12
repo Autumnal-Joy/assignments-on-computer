@@ -32,11 +32,9 @@ void leftRotate(Tree*& tree) {
     C = tree->rightChild;
     D = tree->rightChild->leftChild;
     P = tree->parent;
-    int AHeight = max(A->leftChildHeight, A->rightChildHeight) + 1;
-    int CHeight = A->rightChildHeight;
     int DHeight = C->leftChildHeight;
-
-    tree = C;
+    int AHeight = max(A->leftChildHeight, DHeight) + 1;
+    int CHeight = max(AHeight, C->rightChildHeight) + 1;
 
     A->parent = C;
     C->parent = P;
@@ -57,6 +55,8 @@ void leftRotate(Tree*& tree) {
     A->rightChildHeight = DHeight;
     C->leftChild = A;
     C->leftChildHeight = AHeight;
+
+    tree = C;
 }
 
 /* 右顺时针旋转, 更新双向指针的关系以及左右孩子高度 */
@@ -66,11 +66,9 @@ void rightRotate(Tree*& tree) {
     B = tree->leftChild;
     E = tree->leftChild->rightChild;
     P = tree->parent;
-    int AHeight = max(A->leftChildHeight, A->rightChildHeight) + 1;
-    int BHeight = A->leftChildHeight;
     int EHeight = B->rightChildHeight;
-
-    tree = B;
+    int AHeight = max(EHeight, A->rightChildHeight) + 1;
+    int BHeight = max(B->leftChildHeight, AHeight) + 1;
 
     A->parent = B;
     B->parent = P;
@@ -80,7 +78,7 @@ void rightRotate(Tree*& tree) {
     if (P) {
         if (P->rightChild == A) {
             P->rightChild = B;
-            P->leftChildHeight = BHeight;
+            P->rightChildHeight = BHeight;
         } else {
             P->leftChild = B;
             P->leftChildHeight = BHeight;
@@ -90,6 +88,8 @@ void rightRotate(Tree*& tree) {
     A->leftChildHeight = EHeight;
     B->rightChild = A;
     B->rightChildHeight = AHeight;
+
+    tree = B;
 }
 
 void balanced(Tree*& tree) {
@@ -123,20 +123,28 @@ void balanced(Tree*& tree) {
 void insert(Tree*& tree, int key) {
     if (!tree) {
         tree = createTree(NULL, key);
-    } else {
-        if (key < tree->key) {
-            insert(tree->leftChild, key);
-            tree->leftChildHeight = max(tree->leftChild->leftChildHeight,
-                                        tree->leftChild->rightChildHeight) +
-                                    1;
-        } else {
-            insert(tree->rightChild, key);
-            tree->rightChildHeight = max(tree->rightChild->leftChildHeight,
-                                         tree->rightChild->rightChildHeight) +
-                                     1;
-        }
-        balanced(tree);
+        return;
     }
+    if (key < tree->key) {
+        if (tree->leftChild) {
+            insert(tree->leftChild, key);
+        } else {
+            tree->leftChild = createTree(tree, key);
+        }
+        tree->leftChildHeight = max(tree->leftChild->leftChildHeight,
+                                    tree->leftChild->rightChildHeight) +
+                                1;
+    } else {
+        if (tree->rightChild) {
+            insert(tree->rightChild, key);
+        } else {
+            tree->rightChild = createTree(tree, key);
+        }
+        tree->rightChildHeight = max(tree->rightChild->leftChildHeight,
+                                     tree->rightChild->rightChildHeight) +
+                                 1;
+    }
+    balanced(tree);
 }
 
 void reverseOrder(Tree* tree) {
