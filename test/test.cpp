@@ -31,10 +31,13 @@ void inorder(Tree* tree) {
 }
 
 int main(int argc, char const* argv[]) {
-    int num[10] = {1, 4, 7, 0, 3, 6, 9, 2, 5, 8};
+    FILE* fp = fopen("./test/0.in", "r");
     Tree* tree = NULL;
-    for (int i = 0; i < 10; i++) {
-        insert(tree, num[i]);
+    int n, num;
+    fscanf(fp, "%d", &n);
+    for (int i = 0; i < n; i++) {
+        fscanf(fp, "%d", &num);
+        insert(tree, num);
     }
     printf("%d\n", isBalance(tree));
     inorder(tree);
