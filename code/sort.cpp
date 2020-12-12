@@ -10,7 +10,7 @@ void insert(int data[], int a, int b) {
     int j, sum;
     while (i < b) {
         sum = data[i];
-        for (j = i; j > a && data[j - 1] >= data[j]; j--) {
+        for (j = i; j > a && data[j - 1] >= sum; j--) {
             data[j] = data[j - 1];
         }
         data[j] = sum;
@@ -48,7 +48,7 @@ void quick(int data[], int a, int b) {
         data[end] = sum;
     }
     quick(data, a, start);
-    quick(data, start, b);
+    quick(data, start + 1, b);
 }
 
 /*
@@ -63,12 +63,14 @@ void threequick(int data[], int a, int b) {
         return;
     }
     int key;  //枢轴
-    if (data[(a + b) / 2] >= a && data[(a + b) / 2] <= b) {
+    if ((data[(a + b) / 2] >= data[a] && data[(a + b) / 2] <= data[b]) ||
+        (data[(a + b) / 2] <= data[a] && data[(a + b) / 2] >= data[b])) {
         key = data[(a + b) / 2];
-    } else if (data[(a + b) / 2] <= a && a <= b) {
-        key = a;
+    } else if ((data[(a + b) / 2] <= data[a] && data[a] <= data[b]) ||
+               (data[(a + b) / 2] >= data[a] && data[a] >= data[b])) {
+        key = data[a];
     } else {
-        key = b;
+        key = data[b];
     }
     int start = a;
     int end = b - 1;
@@ -85,5 +87,5 @@ void threequick(int data[], int a, int b) {
         data[end] = sum;
     }
     threequick(data, a, start);
-    threequick(data, start, b);
+    threequick(data, start + 1, b);
 }
