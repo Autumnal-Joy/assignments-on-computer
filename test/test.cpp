@@ -1,28 +1,42 @@
 #include <stdio.h>
 #include <string.h>
 #include "../code/tree.h"
+int max(int a, int b);
 
-int main(int argc, char const* argv[]) {
-    FILE* fp = fopen("test/test.in", "r");
-    Tree* tree = NULL;
-    int key;
-    while (fscanf(fp, "%d", &key) != -1) {
-        insert(tree, key);
-        reverseOrder(tree);
-        printf("\n");
+int getHeight(Tree* tree) {
+    if (!tree) {
+        return 0;
     }
-    return 0;
+    return max(getHeight(tree->leftChild), getHeight(tree->rightChild)) + 1;
 }
 
-int equal(Tree* a, Tree* b) {
-    if (!a || !b) {
-        return a == b;
+int isBalance(Tree* tree) {
+    if (!tree) {
+        return 1;
     }
-    if (a->key != b->key || a->leftChildHeight != b->leftChildHeight ||
-        a->rightChildHeight != b->rightChildHeight) {
+    int l = getHeight(tree->leftChild);
+    int r = getHeight(tree->rightChild);
+    if (l - r < -1 || l - r > 1) {
         return 0;
-    } else {
-        return equal(a->leftChild, b->leftChild) &&
-               equal(a->rightChild, b->rightChild);
     }
+    return isBalance(tree->leftChild) && isBalance(tree->rightChild);
+}
+
+void inorder(Tree* tree) {
+    if (!tree)
+        return;
+    inorder(tree->leftChild);
+    printf("%d ", tree->key);
+    inorder(tree->rightChild);
+}
+
+int main(int argc, char const* argv[]) {
+    int num[10] = {1, 4, 7, 0, 3, 6, 9, 2, 5, 8};
+    Tree* tree = NULL;
+    for (int i = 0; i < 10; i++) {
+        insert(tree, num[i]);
+    }
+    printf("%d\n", isBalance(tree));
+    inorder(tree);
+    return 0;
 }

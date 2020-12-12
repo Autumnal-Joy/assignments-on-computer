@@ -32,21 +32,31 @@ void leftRotate(Tree*& tree) {
     C = tree->rightChild;
     D = tree->rightChild->leftChild;
     P = tree->parent;
+    int AHeight = max(A->leftChildHeight, A->rightChildHeight) + 1;
+    int CHeight = A->rightChildHeight;
+    int DHeight = C->leftChildHeight;
+
     tree = C;
-    C->parent = P;
-    if (P->rightChild == A) {
-        P->rightChild = C;
-    } else {
-        P->leftChild = C;
-    }
-    C->leftChild = A;
-    A->rightChild = D;
-    D->parent = A;
+
     A->parent = C;
-    int ALH = A->leftChildHeight;
-    A->leftChildHeight = C->rightChildHeight;
-    C->rightChildHeight = P->leftChildHeight;
-    P->leftChildHeight = ALH;
+    C->parent = P;
+    if (D) {
+        D->parent = A;
+    }
+
+    if (P) {
+        if (P->rightChild == A) {
+            P->rightChild = C;
+            P->rightChildHeight = CHeight;
+        } else {
+            P->leftChild = C;
+            P->leftChildHeight = CHeight;
+        }
+    }
+    A->rightChild = D;
+    A->rightChildHeight = DHeight;
+    C->leftChild = A;
+    C->leftChildHeight = AHeight;
 }
 
 /* 右顺时针旋转, 更新双向指针的关系以及左右孩子高度 */
@@ -56,21 +66,30 @@ void rightRotate(Tree*& tree) {
     B = tree->leftChild;
     E = tree->leftChild->rightChild;
     P = tree->parent;
+    int AHeight = max(A->leftChildHeight, A->rightChildHeight) + 1;
+    int BHeight = A->leftChildHeight;
+    int EHeight = B->rightChildHeight;
+
     tree = B;
-    B->parent = P;
-    if (P->leftChild == A) {
-        P->leftChild = B;
-    } else {
-        P->rightChild = B;
-    }
-    B->rightChild = A;
-    A->leftChild = E;
-    E->parent = A;
+
     A->parent = B;
-    int ALH = A->leftChildHeight;
-    A->leftChildHeight = B->rightChildHeight;
-    B->rightChildHeight = P->leftChildHeight;
-    P->leftChildHeight = ALH;
+    B->parent = P;
+    if (E) {
+        E->parent = A;
+    }
+    if (P) {
+        if (P->rightChild == A) {
+            P->rightChild = B;
+            P->leftChildHeight = BHeight;
+        } else {
+            P->leftChild = B;
+            P->leftChildHeight = BHeight;
+        }
+    }
+    A->leftChild = E;
+    A->leftChildHeight = EHeight;
+    B->rightChild = A;
+    B->rightChildHeight = AHeight;
 }
 
 void balanced(Tree*& tree) {
