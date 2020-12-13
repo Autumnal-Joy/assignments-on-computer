@@ -6,15 +6,13 @@
 否则在前边找到该元素的插入点，移动数组，进行插入。然后继续扫描。扫描到终点后，该数组的插入排序也就完成了。
 */
 void insert(int data[], int a, int b) {
-    int i = a + 1;
     int j, sum;
-    while (i < b) {
+    for (int i = a + 1; i < b; i++) {
         sum = data[i];
         for (j = i; j > a && data[j - 1] >= sum; j--) {
             data[j] = data[j - 1];
         }
         data[j] = sum;
-        i++;
     }
 }
 
@@ -35,18 +33,21 @@ void quick(int data[], int a, int b) {
     int key = data[a];
     int start = a;
     int end = b - 1;
-    int sum;
     while (start < end) {
-        while (start < end && data[start] <= key) {
-            ++start;
-        }
         while (start < end && data[end] >= key) {
             --end;
         }
-        sum = data[start];
-        data[start] = data[end];
-        data[end] = sum;
+        if (start < end) {
+            data[start] = data[end];
+        }
+        while (start < end && data[start] <= key) {
+            ++start;
+        }
+        if (start < end) {
+            data[end] = data[start];
+        }
     }
+    data[start] = key;
     quick(data, a, start);
     quick(data, start + 1, b);
 }
@@ -63,29 +64,38 @@ void threequick(int data[], int a, int b) {
         return;
     }
     int key;  //枢轴
-    if ((data[(a + b) / 2] >= data[a] && data[(a + b) / 2] <= data[b]) ||
-        (data[(a + b) / 2] <= data[a] && data[(a + b) / 2] >= data[b])) {
-        key = data[(a + b) / 2];
-    } else if ((data[(a + b) / 2] <= data[a] && data[a] <= data[b]) ||
-               (data[(a + b) / 2] >= data[a] && data[a] >= data[b])) {
-        key = data[a];
-    } else {
-        key = data[b];
-    }
     int start = a;
     int end = b - 1;
-    int sum;
+    if ((data[(start + end) / 2] >= data[start] &&
+         data[(start + end) / 2] <= data[end]) ||
+        (data[(start + end) / 2] <= data[start] &&
+         data[(start + end) / 2] >= data[end])) {
+        key = data[(start + end) / 2];
+        data[(start + end) / 2] = data[start];
+    } else if ((data[(start + end) / 2] <= data[start] &&
+                data[start] <= data[end]) ||
+               (data[(start + end) / 2] >= data[start] &&
+                data[start] >= data[end])) {
+        key = data[start];
+    } else {
+        key = data[end];
+        data[end] = data[start];
+    }
     while (start < end) {
-        while (start < end && data[start] <= key) {
-            ++start;
-        }
         while (start < end && data[end] >= key) {
             --end;
         }
-        sum = data[start];
-        data[start] = data[end];
-        data[end] = sum;
+        if (start < end) {
+            data[start] = data[end];
+        }
+        while (start < end && data[start] <= key) {
+            ++start;
+        }
+        if (start < end) {
+            data[end] = data[start];
+        }
     }
-    threequick(data, a, start);
-    threequick(data, start + 1, b);
+    data[start] = key;
+    quick(data, a, start);
+    quick(data, start + 1, b);
 }
